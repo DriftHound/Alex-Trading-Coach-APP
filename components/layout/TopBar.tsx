@@ -2,125 +2,117 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Bell, LogOut, User, Clock } from 'lucide-react';
-import { getAlexTimeStatus } from '@/lib/utils/alexTime';
-import { cn } from '@/lib/utils/cn';
-import NotificationCenter from '@/components/layout/NotificationCenter';
+import { Bell, User, LogOut, Clock } from 'lucide-react';
+import { getAlexTimeStatus, formatAlexTime } from '@/lib/utils/alexTime';
+import { logout, getCurrentUser } from '@/lib/api/client';
+import NotificationCenter from './NotificationCenter';
 
 export default function TopBar() {
     const router = useRouter();
-    const [showUserMenu, setShowUserMenu] = useState(false);
     const [showNotifications, setShowNotifications] = useState(false);
-    const [alexTimeStatus, setAlexTimeStatus] = useState(getAlexTimeStatus());
+    const [showUserMenu, setShowUserMenu] = useState(false);
+    const [alexTime, setAlexTime] = useState(getAlexTimeStatus());
+    const [currentUser, setCurrentUser] = useState<any>(null);
 
-    // Update Alex Time every second
     useEffect(() => {
+        // Update Alex Time every minute
         const interval = setInterval(() => {
-            setAlexTimeStatus(getAlexTimeStatus());
-        }, 1000);
+            setAlexTime(getAlexTimeStatus());
+        }, 60000);
+
+        // Get current user
+        setCurrentUser(getCurrentUser());
 
         return () => clearInterval(interval);
     }, []);
 
-    const handleLogout = async () => {
-        try {
-            await fetch('/api/logout', { method: 'POST' });
-            router.push('/login');
-        } catch (error) {
-            console.error('Logout error:', error);
-        }
+    const handleLogout = () => {
+        logout();
     };
 
     return (
         <header className="h-16 bg-surface border-b border-gray-700 px-6 flex items-center justify-between sticky top-0 z-30">
-            {/* Left side - Alex Time */}
-            <div className="flex items-center gap-4">
-                <div className={cn(
-                    'flex items-center gap-2 px-4 py-2 rounded-lg',
-                    alexTimeStatus.isAlexTime ? 'bg-success/10 border border-success' : 'bg-danger/10 border border-danger'
-                )}>
-                    <Clock className={cn(
-                        'w-5 h-5',
-                        alexTimeStatus.isAlexTime ? 'text-success' : 'text-danger'
-                    )} />
-                    <div>
-                        <p className="text-xs text-gray-400">Alex Time</p>
-                        <p className={cn(
-                            'text-sm font-mono font-semibold',
-                            alexTimeStatus.isAlexTime ? 'text-success' : 'text-danger'
-                        )}>
-                            {alexTimeStatus.currentTimeEST}
-                        </p>
-                    </div>
-                    {alexTimeStatus.isAlexTime ? (
-                        <span className="ml-2 text-xs text-success">
-                            {alexTimeStatus.timeUntilEnd} left
-                        </span>
-                    ) : (
-                        <span className="ml-2 text-xs text-danger">
-                            {alexTimeStatus.timeUntilStart} until start
-                        </span>
-                    )}
+            {/* Left: Alex Time Widget */}
+            <div className="flex items-center gap-3">
+                <Clock className="w-5 h-5 text-primary-400" />
+                <div>
+                    <p className="text-sm font-medium">
+                        {alexTime.isAlexTime ? (
+                            <span className="text-success">✓ Alex Time Active</span>
+                        ) : (
+                            <span className="text-danger">⚠️ Outside Alex Time</span>
+                        )}
+                    </p>
+                    <p className="text-xs text-gray-400">{formatAlexTime()}</p>
                 </div>
             </div>
 
-            {/* Right side - User actions */}
+            {/* Right: Notifications & User Menu */}
             <div className="flex items-center gap-4">
                 {/* Notifications */}
                 <div className="relative">
                     <button
                         onClick={() => setShowNotifications(!showNotifications)}
-                        className="p-2 hover:bg-surface-hover rounded-lg transition-colors relative"
+                        className="p-2 hover:bg-background-secondary rounded-lg transition-colors relative"
                     >
-                        <Bell className="w-5 h-5" />
-                        {/* Notification badge - will be dynamic */}
+                        <Bell className="w-5 h-5 text-gray-400" />
                         <span className="absolute top-1 right-1 w-2 h-2 bg-danger rounded-full"></span>
                     </button>
 
                     {showNotifications && (
-                        <NotificationCenter onClose={() => setShowNotifications(false)} />
+                        <>
+                            <div
+                                className="fixed inset-0 z-40"
+                                onClick={() => setShowNotifications(false)}
+                            />
+                            <div className="absolute right-0 mt-2 z-50">
+                                <NotificationCenter onClose={() => setShowNotifications(false)} />
+                            </div>
+                        </>
                     )}
                 </div>
 
-                {/* User menu */}
+                {/* User Menu */}
                 <div className="relative">
                     <button
                         onClick={() => setShowUserMenu(!showUserMenu)}
-                        className="flex items-center gap-2 p-2 hover:bg-surface-hover rounded-lg transition-colors"
+                        className="flex items-center gap-2 p-2 hover:bg-background-secondary rounded-lg transition-colors"
                     >
                         <div className="w-8 h-8 bg-primary-600 rounded-full flex items-center justify-center">
                             <User className="w-5 h-5 text-white" />
                         </div>
+                        <span className="text-sm font-medium hidden md:block">
+                            {currentUser?.name || currentUser?.email || 'User'}
+                        </span>
                     </button>
 
                     {showUserMenu && (
-                        <div className="absolute right-0 mt-2 w-48 bg-surface border border-gray-700 rounded-lg shadow-card overflow-hidden">
-                            <div className="p-3 border-b border-gray-700">
-                                <p className="text-sm font-medium">Trader</p>
-                                <p className="text-xs text-gray-400">trader@example.com</p>
+                        <>
+                            <div
+                                className="fixed inset-0 z-40"
+                                onClick={() => setShowUserMenu(false)}
+                            />
+                            <div className="absolute right-0 mt-2 w-48 bg-surface border border-gray-700 rounded-lg shadow-xl z-50">
+                                <div className="p-3 border-b border-gray-700">
+                                    <p className="text-sm font-medium">
+                                        {currentUser?.name || 'User'}
+                                    </p>
+                                    <p className="text-xs text-gray-400">
+                                        {currentUser?.email || ''}
+                                    </p>
+                                </div>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-full px-4 py-2 text-left text-sm hover:bg-background-secondary transition-colors flex items-center gap-2 text-danger"
+                                >
+                                    <LogOut className="w-4 h-4" />
+                                    Logout
+                                </button>
                             </div>
-                            <button
-                                onClick={handleLogout}
-                                className="w-full flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-surface-hover transition-colors"
-                            >
-                                <LogOut className="w-4 h-4" />
-                                Sign Out
-                            </button>
-                        </div>
+                        </>
                     )}
                 </div>
             </div>
-
-            {/* Click outside to close menus */}
-            {(showUserMenu || showNotifications) && (
-                <div
-                    className="fixed inset-0 z-20"
-                    onClick={() => {
-                        setShowUserMenu(false);
-                        setShowNotifications(false);
-                    }}
-                />
-            )}
         </header>
     );
 }

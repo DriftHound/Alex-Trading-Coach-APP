@@ -103,3 +103,29 @@ class APIClient {
 
 // Export singleton instance
 export const apiClient = new APIClient();
+
+// Helper function to check if user is authenticated
+export const isAuthenticated = (): boolean => {
+    if (typeof window !== 'undefined') {
+        return !!localStorage.getItem('authToken');
+    }
+    return false;
+};
+
+// Helper function to get current user
+export const getCurrentUser = () => {
+    if (typeof window !== 'undefined') {
+        const userStr = localStorage.getItem('user');
+        return userStr ? JSON.parse(userStr) : null;
+    }
+    return null;
+};
+
+// Helper function to logout
+export const logout = () => {
+    if (typeof window !== 'undefined') {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+    }
+};
