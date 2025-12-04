@@ -11,18 +11,17 @@ class APIClient {
             headers: {
                 'Content-Type': 'application/json',
             },
-            withCredentials: true, // Important for httpOnly cookies
+            withCredentials: true, // CRITICAL: Enables cross-origin cookie sending
         });
 
         this.setupInterceptors();
     }
 
     private setupInterceptors() {
-        // Request interceptor - add auth token
+        // Request interceptor
         this.client.interceptors.request.use(
             async (config: InternalAxiosRequestConfig) => {
-                // Token is managed via httpOnly cookies, but we can add it to headers if needed
-                // For client-side requests, the cookie will be sent automatically
+                // Cookies are sent automatically with withCredentials: true
                 return config;
             },
             (error: AxiosError) => {
