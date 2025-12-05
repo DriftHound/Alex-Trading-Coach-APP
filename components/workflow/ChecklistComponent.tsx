@@ -43,14 +43,14 @@ export default function ChecklistComponent({ onComplete }: ChecklistComponentPro
             id: 'confluence',
             label: 'Confluence score ≥ 60',
             description: 'Pattern validation passed',
-            checked: (step4Validation?.confluenceScore || 0) >= 60,
+            checked: (step4Validation?.confluence_score || 0) >= 60,
             required: true,
         },
         {
             id: 'rr_ratio',
             label: 'R:R ratio ≥ 1:2',
             description: 'Minimum risk-reward requirement',
-            checked: step5Validation?.rrValid || false,
+            checked: step5Validation?.rr_valid || false,
             required: true,
         },
         {

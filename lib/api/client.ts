@@ -11,33 +11,17 @@ class APIClient {
             headers: {
                 'Content-Type': 'application/json',
             },
-<<<<<<< HEAD
-=======
             withCredentials: true, // CRITICAL: Enables cross-origin cookie sending
->>>>>>> b412521f98b9358df050d281c89323c7aa594f27
         });
 
         this.setupInterceptors();
     }
 
     private setupInterceptors() {
-<<<<<<< HEAD
-        // Request interceptor - add Bearer token from localStorage
-        this.client.interceptors.request.use(
-            async (config: InternalAxiosRequestConfig) => {
-                // Get token from localStorage (set after Google OAuth login)
-                if (typeof window !== 'undefined') {
-                    const token = localStorage.getItem('authToken');
-                    if (token && config.headers) {
-                        config.headers.Authorization = `Bearer ${token}`;
-                    }
-                }
-=======
         // Request interceptor
         this.client.interceptors.request.use(
             async (config: InternalAxiosRequestConfig) => {
                 // Cookies are sent automatically with withCredentials: true
->>>>>>> b412521f98b9358df050d281c89323c7aa594f27
                 return config;
             },
             (error: AxiosError) => {
@@ -50,15 +34,8 @@ class APIClient {
             (response) => response,
             async (error: AxiosError) => {
                 if (error.response?.status === 401) {
-<<<<<<< HEAD
-                    // Token expired or invalid - clear and redirect to login
-                    if (typeof window !== 'undefined') {
-                        localStorage.removeItem('authToken');
-                        localStorage.removeItem('user');
-=======
                     // Unauthorized - redirect to login
                     if (typeof window !== 'undefined') {
->>>>>>> b412521f98b9358df050d281c89323c7aa594f27
                         window.location.href = '/login';
                     }
                 }
