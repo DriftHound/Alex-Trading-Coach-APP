@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://alex-trading-coach-app.netlify.app/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/
