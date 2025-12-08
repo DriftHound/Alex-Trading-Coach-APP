@@ -12,6 +12,7 @@ import {
     X
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import ConfluenceLogo from './ConfluenceLogo';
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -49,9 +50,7 @@ export default function Sidebar() {
                     {/* Logo */}
                     <div className="p-6 border-b border-gray-700">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-primary-600 rounded-lg flex items-center justify-center">
-                                <TrendingUp className="w-6 h-6 text-white" />
-                            </div>
+                            <ConfluenceLogo size={48} />
                             <div>
                                 <h1 className="font-bold text-lg">Confluence Coach</h1>
                                 <p className="text-xs text-gray-400">Pre-Trade Checklist</p>

@@ -4,6 +4,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { AlertTriangle } from 'lucide-react';
+import ConfluenceLogo from '@/components/layout/ConfluenceLogo';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -74,8 +75,8 @@ export default function LoginPage() {
       <div className="card max-w-md w-full">
         {/* Logo/Header */}
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full mb-4">
-            <span className="text-3xl">✓</span>
+          <div className="flex justify-center mb-4">
+            <ConfluenceLogo size={80} />
           </div>
           <h1 className="text-3xl font-bold mb-2">Confluence Checklist Coach</h1>
           <p className="text-gray-400">Pre-Trade Checklist for Rule-Based Traders</p>

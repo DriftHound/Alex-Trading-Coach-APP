@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Bell, User, LogOut } from 'lucide-react';
 import { logout, getCurrentUser } from '@/lib/api/client';
 import NotificationCenter from './NotificationCenter';
+import ConfluenceLogo from './ConfluenceLogo';
 
 export default function TopBar() {
     const router = useRouter();
@@ -23,11 +24,14 @@ export default function TopBar() {
 
     return (
         <header className="h-16 bg-surface border-b border-gray-700 px-6 flex items-center justify-between sticky top-0 z-30">
-            {/* Left: App Name */}
+            {/* Left: App Logo & Name */}
             <div className="flex items-center gap-3">
-                <h1 className="text-lg font-semibold text-primary-400">
-                    Confluence Checklist Coach
-                </h1>
+                <ConfluenceLogo size={40} />
+                <div>
+                    <h1 className="text-lg font-semibold text-primary-400">
+                        Confluence Checklist Coach
+                    </h1>
+                </div>
             </div>
 
             {/* Right: Notifications & User Menu */}
