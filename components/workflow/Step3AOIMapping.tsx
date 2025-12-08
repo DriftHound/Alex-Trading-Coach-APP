@@ -276,7 +276,7 @@ export default function Step3AOIMapping() {
                                     <div>
                                         <p className="font-semibold">🛑 STAND DOWN - Cannot Proceed</p>
                                         <p className="text-sm mt-1">
-                                            The AOI placement does not meet your predefined criteria. Please review the feedback and adjust your AOI.
+                                            The AOI placement does not meet the required criteria. This level is not valid - review the feedback carefully.
                                         </p>
                                     </div>
                                 </div>

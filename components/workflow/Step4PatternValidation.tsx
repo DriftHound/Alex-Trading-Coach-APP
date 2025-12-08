@@ -334,9 +334,9 @@ export default function Step4PatternValidation() {
                             <div className="alert-danger">
                                 <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                                 <div>
-                                    <p className="font-semibold">⚠️ STAND DOWN - Does Not Meet Criteria</p>
+                                    <p className="font-semibold">⚠️ STAND DOWN - Invalid Setup</p>
                                     <p className="text-sm mt-1">
-                                        Confluence score below 60. This setup does not meet your predefined criteria.
+                                        Confluence score below 60. This setup does NOT meet the minimum required criteria. Do not take this trade.
                                     </p>
                                 </div>
                             </div>

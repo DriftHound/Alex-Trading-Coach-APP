@@ -243,7 +243,7 @@ export default function Step5RiskCalculation() {
                         {preview.isValid && (
                             <div className="alert-success">
                                 <CheckCircle className="w-5 h-5 flex-shrink-0" />
-                                <p>R:R ratio meets your risk management criteria. This trade is valid!</p>
+                                <p>R:R ratio meets the minimum 1:2 requirement. This trade is valid!</p>
                             </div>
                         )}
                     </div>

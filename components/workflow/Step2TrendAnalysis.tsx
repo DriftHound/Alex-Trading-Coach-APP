@@ -280,7 +280,7 @@ export default function Step2TrendAnalysis() {
                                     <div>
                                         <p className="font-semibold">🛑 STAND DOWN - Cannot Proceed</p>
                                         <p className="text-sm mt-1">
-                                            The trend analysis does not meet your predefined criteria. Please review the feedback and adjust your analysis.
+                                            The trend analysis does not meet the required criteria. This setup is not valid - review the feedback carefully.
                                         </p>
                                     </div>
                                 </div>
