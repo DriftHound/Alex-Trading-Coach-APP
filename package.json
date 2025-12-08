@@ -1,8 +1,8 @@
 {
-  "name": "alex-trading-coach",
+  "name": "confluence-checklist-coach",
   "version": "1.0.0",
   "private": true,
-  "description": "Professional FX Trading Coach Application with AI-powered validation and analytics",
+  "description": "Pre-trade checklist coach for confluence-based, set-and-forget traders. Educational use only.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

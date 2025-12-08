@@ -2,8 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { Bell, User, LogOut, Clock } from 'lucide-react';
-import { getAlexTimeStatus, formatAlexTime } from '@/lib/utils/alexTime';
+import { Bell, User, LogOut } from 'lucide-react';
 import { logout, getCurrentUser } from '@/lib/api/client';
 import NotificationCenter from './NotificationCenter';
 
@@ -11,19 +10,11 @@ export default function TopBar() {
     const router = useRouter();
     const [showNotifications, setShowNotifications] = useState(false);
     const [showUserMenu, setShowUserMenu] = useState(false);
-    const [alexTime, setAlexTime] = useState(getAlexTimeStatus());
     const [currentUser, setCurrentUser] = useState<any>(null);
 
     useEffect(() => {
-        // Update Alex Time every minute
-        const interval = setInterval(() => {
-            setAlexTime(getAlexTimeStatus());
-        }, 60000);
-
         // Get current user
         setCurrentUser(getCurrentUser());
-
-        return () => clearInterval(interval);
     }, []);
 
     const handleLogout = () => {
@@ -32,19 +23,11 @@ export default function TopBar() {
 
     return (
         <header className="h-16 bg-surface border-b border-gray-700 px-6 flex items-center justify-between sticky top-0 z-30">
-            {/* Left: Alex Time Widget */}
+            {/* Left: App Name */}
             <div className="flex items-center gap-3">
-                <Clock className="w-5 h-5 text-primary-400" />
-                <div>
-                    <p className="text-sm font-medium">
-                        {alexTime.isAlexTime ? (
-                            <span className="text-success">✓ Alex Time Active</span>
-                        ) : (
-                            <span className="text-danger">⚠️ Outside Alex Time</span>
-                        )}
-                    </p>
-                    <p className="text-xs text-gray-400">{formatAlexTime()}</p>
-                </div>
+                <h1 className="text-lg font-semibold text-primary-400">
+                    Confluence Checklist Coach
+                </h1>
             </div>
 
             {/* Right: Notifications & User Menu */}

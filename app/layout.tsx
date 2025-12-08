@@ -6,9 +6,9 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Alex Trading Coach | Professional FX Trading with AI Validation',
-    description: 'High-leverage FX trading coach with 6-step validation workflow, TradingView charts, and AI-powered coaching analytics.',
-    keywords: ['forex', 'trading', 'FX', 'trading coach', 'technical analysis', 'risk management'],
+    title: 'Confluence Checklist Coach | Pre-Trade Checklist for Rule-Based Traders',
+    description: 'Structured pre-trade checklist for confluence-based, set-and-forget traders. Follow your own rules before placing a trade. Educational use only.',
+    keywords: ['trading checklist', 'pre-trade planning', 'confluence trading', 'set and forget', 'risk management', 'trading discipline'],
 };
 
 export default function RootLayout({
