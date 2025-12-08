@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { monitoringAPI } from '@/lib/api/workflow';
-import { getAlexTimeStatus } from '@/lib/utils/alexTime';
+import { getSessionTimeStatus } from '@/lib/utils/sessionTime';
 import { formatDateTime } from '@/lib/utils/formatters';
 import { cn } from '@/lib/utils/cn';
 
@@ -12,7 +12,7 @@ export default function MonitoringSettings() {
     const [activeAOIs, setActiveAOIs] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isSaving, setIsSaving] = useState(false);
-    const alexTime = getAlexTimeStatus();
+    const sessionTime = getSessionTimeStatus();
 
     useEffect(() => {
         loadStatus();
@@ -89,26 +89,26 @@ export default function MonitoringSettings() {
             </div>
 
             {/* Alex Time Warning */}
-            {isEnabled && !alexTime.isAlexTime && (
+            {isEnabled && !sessionTime.isSessionTime && (
                 <div className="alert-warning">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                     <div>
                         <p className="font-semibold">Currently Outside Alex Time</p>
                         <p className="text-sm mt-1">
                             Alerts will only fire during the London session (1:00-10:30 AM EST).
-                            Next session starts in {alexTime.timeUntilStart}.
+                            Next session starts in {sessionTime.timeUntilStart}.
                         </p>
                     </div>
                 </div>
             )}
 
-            {isEnabled && alexTime.isAlexTime && (
+            {isEnabled && sessionTime.isSessionTime && (
                 <div className="alert-success">
                     <CheckCircle className="w-5 h-5 flex-shrink-0" />
                     <div>
                         <p className="font-semibold">Monitoring Active</p>
                         <p className="text-sm mt-1">
-                            AOI alerts are enabled and Alex Time is active. {alexTime.timeUntilEnd} remaining in session.
+                            AOI alerts are enabled and Alex Time is active. {sessionTime.timeUntilEnd} remaining in session.
                         </p>
                     </div>
                 </div>
