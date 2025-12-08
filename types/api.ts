@@ -38,33 +38,38 @@ export interface Step1MarketSessionData {
 
 export interface Step2TrendAnalysisData {
     pair: string;
-    weekly_trend: 'up' | 'down' | 'messy';
-    daily_trend: 'up' | 'down' | 'messy';
-    four_hour_trend: 'up' | 'down' | 'messy';
+    weeklyTrend: 'bullish' | 'bearish' | 'ranging';
+    dailyTrend: 'bullish' | 'bearish' | 'ranging';
+    fourhTrend: 'bullish' | 'bearish' | 'ranging';
+    description: string;
+    chartContext: string;
+    screenshotUrl?: string;
 }
 
 export interface TrendValidationResponse {
-    valid: boolean;
-    confidence_score: number;
+    isValid: boolean;
+    confidence: number;
+    feedback: string;
     warnings: string[];
+    recommendation: 'PROCEED' | 'CAUTION' | 'STAND_DOWN';
 }
 
 export interface Step3AOIData {
     pair: string;
-    aoi_type: 'rectangle' | 'horizontal_ray';
-    aoi_coordinates: {
-        top: number;
-        bottom: number;
-        left: number;
-        right?: number;
-    };
+    aoiType: 'Support' | 'Resistance' | 'Fibonacci' | 'Trendline' | 'Other';
+    aoiLevel: string;
     description: string;
+    chartContext: string;
+    screenshotUrl?: string;
 }
 
 export interface AOIValidationResponse {
-    valid: boolean;
-    prior_respect: string;
-    rr_potential: string;
+    isValid: boolean;
+    confidence: number;
+    feedback: string;
+    confluenceFactors: string[];
+    warnings: string[];
+    recommendation: 'PROCEED' | 'CAUTION' | 'STAND_DOWN';
 }
 
 export interface Step4PatternData {

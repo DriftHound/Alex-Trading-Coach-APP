@@ -192,9 +192,9 @@ export default function Step6ReviewJournal() {
                 <div className="card">
                     <h4 className="font-semibold mb-2">Trend Analysis</h4>
                     <div className="text-sm text-gray-400 space-y-1">
-                        <p>Weekly: {step2Data?.weekly_trend || 'N/A'}</p>
-                        <p>Daily: {step2Data?.daily_trend || 'N/A'}</p>
-                        <p>4H: {step2Data?.four_hour_trend || 'N/A'}</p>
+                        <p>Weekly: {step2Data?.weeklyTrend || 'N/A'}</p>
+                        <p>Daily: {step2Data?.dailyTrend || 'N/A'}</p>
+                        <p>4H: {step2Data?.fourhTrend || 'N/A'}</p>
                     </div>
                 </div>
 
