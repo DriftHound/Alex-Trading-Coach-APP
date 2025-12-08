@@ -78,7 +78,7 @@ See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
 
 - ✅ JWT Authentication with httpOnly cookies
 - ✅ 6-step trade validation workflow
-- ✅ Real-time "Alex Time" session tracking
+- ✅ Real-time "Optimal Trading Hours" session tracking
 - ✅ Pattern validation with confluence scoring
 - ✅ R:R calculation with 1:2 minimum enforcement
 - ✅ Trade journal with AI coaching insights

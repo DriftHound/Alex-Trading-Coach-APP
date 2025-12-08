@@ -232,7 +232,7 @@ export default function Step5RiskCalculation() {
                             <div className="alert-danger">
                                 <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                                 <div>
-                                    <p className="font-semibold">🛑 R:R is below 1:2 - NOT AN ALEX TRADE</p>
+                                    <p className="font-semibold">🛑 R:R is below 1:2 - INVALID TRADE</p>
                                     <p className="text-sm mt-1">
                                         Minimum R:R ratio is 1:2. Adjust your stop loss or take profit targets.
                                     </p>

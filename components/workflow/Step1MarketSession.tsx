@@ -7,7 +7,7 @@ import { z } from 'zod';
 import { ChevronRight, Clock, CheckCircle } from 'lucide-react';
 import { useWorkflowStore } from '@/store/workflowStore';
 import { workflowAPI } from '@/lib/api/workflow';
-import { getAlexTimeStatus } from '@/lib/utils/alexTime';
+import { getSessionTimeStatus } from '@/lib/utils/sessionTime';
 import { cn } from '@/lib/utils/cn';
 
 const FX_PAIRS = [
@@ -37,7 +37,7 @@ type Step1FormData = z.infer<typeof step1Schema>;
 export default function Step1MarketSession() {
     const { step1Data, setStep1Data, nextStep } = useWorkflowStore();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [sessionTime] = useState(getAlexTimeStatus());
+    const [sessionTime] = useState(getSessionTimeStatus());
 
     const {
         register,
@@ -55,7 +55,7 @@ export default function Step1MarketSession() {
             const sessionData = {
                 pair: data.pair,
                 timestamp: new Date().toISOString(),
-                is_alex_time: sessionTime.isAlexTime,
+                is_alex_time: sessionTime.isOptimalSession,
             };
 
             // Log session with Manus API
@@ -83,17 +83,17 @@ export default function Step1MarketSession() {
                 {/* Trading Session Time Widget */}
                 <div className={cn(
                     'p-6 rounded-lg border-2',
-                    sessionTime.isAlexTime
+                    sessionTime.isOptimalSession
                         ? 'bg-success/10 border-success'
                         : 'bg-danger/10 border-danger'
                 )}>
                     <div className="flex items-center gap-3 mb-3">
                         <Clock className={cn(
                             'w-6 h-6',
-                            sessionTime.isAlexTime ? 'text-success' : 'text-danger'
+                            sessionTime.isOptimalSession ? 'text-success' : 'text-danger'
                         )} />
                         <h3 className="text-lg font-semibold">
-                            {sessionTime.isAlexTime ? '✓ Optimal Trading Hours Active' : '⚠️ Outside Optimal Trading Hours'}
+                            {sessionTime.isOptimalSession ? '✓ Optimal Trading Hours Active' : '⚠️ Outside Optimal Trading Hours'}
                         </h3>
                     </div>
 
@@ -112,7 +112,7 @@ export default function Step1MarketSession() {
                         </div>
                     </div>
 
-                    {sessionTime.isAlexTime ? (
+                    {sessionTime.isOptimalSession ? (
                         <div className="mt-3 flex items-center gap-2 text-success">
                             <CheckCircle className="w-5 h-5" />
                             <span className="font-medium">

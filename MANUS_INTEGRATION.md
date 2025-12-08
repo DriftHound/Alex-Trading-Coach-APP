@@ -65,7 +65,7 @@ NEXT_PUBLIC_API_BASE_URL=https://3000-ivs6mmlhg9m3tj3d6stg6-3c645c19.manusvm.com
 **Logic**:
 ```typescript
 if (result.confluenceScore < 60) {
-  // Display: "⚠️ STAND DOWN - Not an Alex Trade"
+  // Display: "⚠️ STAND DOWN - Invalid Setup"
   // Block nextStep()
   return;
 }
@@ -86,7 +86,7 @@ if (result.confluenceScore < 60) {
 **Logic**:
 ```typescript
 if (!result.rrValid) {
-  // Display: "🛑 R:R is below 1:2 - NOT AN ALEX TRADE"
+  // Display: "🛑 R:R is below 1:2 - INVALID TRADE"
   // Disable "Next" button
   return;
 }

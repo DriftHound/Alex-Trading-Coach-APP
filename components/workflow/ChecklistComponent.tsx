@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 import { useWorkflowStore } from '@/store/workflowStore';
-import { getAlexTimeStatus } from '@/lib/utils/alexTime';
+import { getSessionTimeStatus } from '@/lib/utils/sessionTime';
 import { cn } from '@/lib/utils/cn';
 
 interface ChecklistItem {
@@ -29,14 +29,14 @@ export default function ChecklistComponent({ onComplete }: ChecklistComponentPro
         step5Validation,
     } = useWorkflowStore();
 
-    const alexTime = getAlexTimeStatus();
+    const sessionTime = getSessionTimeStatus();
 
     const [checklist, setChecklist] = useState<ChecklistItem[]>([
         {
-            id: 'alex_time',
-            label: 'Trade is during Alex Time (1:00-10:30 AM EST)',
+            id: 'optimal_session',
+            label: 'Trade is during Optimal Trading Hours (1:00-10:30 AM EST)',
             description: 'London session trading hours',
-            checked: alexTime.isAlexTime,
+            checked: sessionTime.isAlexTime,
             required: true,
         },
         {
@@ -141,7 +141,7 @@ export default function ChecklistComponent({ onComplete }: ChecklistComponentPro
                             </div>
 
                             {/* Only allow manual toggle for non-auto-checked items */}
-                            {!['alex_time', 'confluence', 'rr_ratio', 'screenshot', 'trend_analysis', 'aoi_marked'].includes(item.id) && (
+                            {!['optimal_session', 'confluence', 'rr_ratio', 'screenshot', 'trend_analysis', 'aoi_marked'].includes(item.id) && (
                                 <input
                                     type="checkbox"
                                     checked={item.checked}

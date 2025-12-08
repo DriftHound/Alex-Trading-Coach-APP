@@ -8,12 +8,12 @@ This is a **Next.js application**, not a static HTML site. Netlify requires a sp
 
 ### Step 1: Push to Git
 ```bash
-cd "/Users/brain/Desktop/Alex Trading Coach APP"
+cd "/Users/brain/Desktop/Confluence Checklist Coach APP"
 
 # Initialize git if not already done
 git init
 git add .
-git commit -m "Initial commit - Alex Trading Coach App"
+git commit -m "Initial commit - Confluence Checklist Coach App"
 
 # Push to GitHub/GitLab/Bitbucket
 # (Create a new repository first on your Git provider)
@@ -53,14 +53,14 @@ netlify login
 
 ### Step 3: Initialize Netlify Site
 ```bash
-cd "/Users/brain/Desktop/Alex Trading Coach APP"
+cd "/Users/brain/Desktop/Confluence Checklist Coach APP"
 netlify init
 ```
 
 Follow the prompts:
 - Create & configure a new site
 - Choose your team
-- Site name: `alex-trading-coach` (or your preferred name)
+- Site name: `confluence-checklist-coach` (or your preferred name)
 - Build command: `npm run build`
 - Directory to deploy: `.next`
 
@@ -128,7 +128,7 @@ Your site will be live at: `https://YOUR_SITE_NAME.netlify.app`
 
 ```bash
 # 1. Push to GitHub
-cd "/Users/brain/Desktop/Alex Trading Coach APP"
+cd "/Users/brain/Desktop/Confluence Checklist Coach APP"
 git init
 git add .
 git commit -m "Initial commit"

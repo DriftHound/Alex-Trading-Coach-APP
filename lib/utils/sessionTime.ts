@@ -1,33 +1,33 @@
 import { format, toZonedTime } from 'date-fns-tz';
 
 // London session times in EST: 1:00 AM - 10:30 AM
-const ALEX_TIME_START_HOUR = 1;
-const ALEX_TIME_START_MINUTE = 0;
-const ALEX_TIME_END_HOUR = 10;
-const ALEX_TIME_END_MINUTE = 30;
+const SESSION_START_HOUR = 1;
+const SESSION_START_MINUTE = 0;
+const SESSION_END_HOUR = 10;
+const SESSION_END_MINUTE = 30;
 
 const EST_TIMEZONE = 'America/New_York';
 
 /**
- * Check if current time is within "Alex Time" (London session 1:00-10:30 EST)
+ * Check if current time is within "optimal trading session" (London session 1:00-10:30 EST)
  */
-export function isAlexTime(date: Date = new Date()): boolean {
+export function isOptimalSession(date: Date = new Date()): boolean {
     const estDate = toZonedTime(date, EST_TIMEZONE);
     const hours = estDate.getHours();
     const minutes = estDate.getMinutes();
 
     const currentMinutes = hours * 60 + minutes;
-    const startMinutes = ALEX_TIME_START_HOUR * 60 + ALEX_TIME_START_MINUTE;
-    const endMinutes = ALEX_TIME_END_HOUR * 60 + ALEX_TIME_END_MINUTE;
+    const startMinutes = SESSION_START_HOUR * 60 + SESSION_START_MINUTE;
+    const endMinutes = SESSION_END_HOUR * 60 + SESSION_END_MINUTE;
 
     return currentMinutes >= startMinutes && currentMinutes <= endMinutes;
 }
 
 /**
- * Get detailed Alex Time status
+ * Get detailed optimal trading session status
  */
-export interface AlexTimeStatus {
-    isAlexTime: boolean;
+export interface OptimalSessionStatus {
+    isOptimalSession: boolean;
     currentTime: string;
     currentTimeEST: string;
     sessionStart: string;
@@ -36,17 +36,17 @@ export interface AlexTimeStatus {
     timeUntilEnd?: string;
 }
 
-export function getAlexTimeStatus(date: Date = new Date()): AlexTimeStatus {
+export function getOptimalSessionStatus(date: Date = new Date()): OptimalSessionStatus {
     const estDate = toZonedTime(date, EST_TIMEZONE);
-    const isAlex = isAlexTime(date);
+    const isOptimal = isOptimalSession(date);
 
     const currentTime = format(date, 'HH:mm:ss');
     const currentTimeEST = format(estDate, 'HH:mm:ss zzz', { timeZone: EST_TIMEZONE });
-    const sessionStart = `${String(ALEX_TIME_START_HOUR).padStart(2, '0')}:${String(ALEX_TIME_START_MINUTE).padStart(2, '0')} EST`;
-    const sessionEnd = `${String(ALEX_TIME_END_HOUR).padStart(2, '0')}:${String(ALEX_TIME_END_MINUTE).padStart(2, '0')} EST`;
+    const sessionStart = `${String(SESSION_START_HOUR).padStart(2, '0')}:${String(SESSION_START_MINUTE).padStart(2, '0')} EST`;
+    const sessionEnd = `${String(SESSION_END_HOUR).padStart(2, '0')}:${String(SESSION_END_MINUTE).padStart(2, '0')} EST`;
 
-    const status: AlexTimeStatus = {
-        isAlexTime: isAlex,
+    const status: OptimalSessionStatus = {
+        isOptimalSession: isOptimal,
         currentTime,
         currentTimeEST,
         sessionStart,
@@ -57,10 +57,10 @@ export function getAlexTimeStatus(date: Date = new Date()): AlexTimeStatus {
     const hours = estDate.getHours();
     const minutes = estDate.getMinutes();
     const currentMinutes = hours * 60 + minutes;
-    const startMinutes = ALEX_TIME_START_HOUR * 60 + ALEX_TIME_START_MINUTE;
-    const endMinutes = ALEX_TIME_END_HOUR * 60 + ALEX_TIME_END_MINUTE;
+    const startMinutes = SESSION_START_HOUR * 60 + SESSION_START_MINUTE;
+    const endMinutes = SESSION_END_HOUR * 60 + SESSION_END_MINUTE;
 
-    if (!isAlex) {
+    if (!isOptimal) {
         if (currentMinutes < startMinutes) {
             const diff = startMinutes - currentMinutes;
             const h = Math.floor(diff / 60);
@@ -84,9 +84,9 @@ export function getAlexTimeStatus(date: Date = new Date()): AlexTimeStatus {
 }
 
 /**
- * Format time display for Alex Time widget
+ * Format time display for optimal trading session widget
  */
-export function formatAlexTime(date: Date = new Date()): string {
+export function formatOptimalSession(date: Date = new Date()): string {
     const estDate = toZonedTime(date, EST_TIMEZONE);
     return format(estDate, 'HH:mm:ss zzz', { timeZone: EST_TIMEZONE });
 }
