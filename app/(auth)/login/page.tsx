@@ -13,22 +13,40 @@ export default function LoginPage() {
       setError(null);
 
       // Send Google ID token to Manus backend
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/google-login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            idToken: credentialResponse.credential
-          }),
-        }
-      );
+      const apiUrl = `${process.env.NEXT_PUBLIC_API_BASE_URL}/google-login`;
+      console.log('Attempting login to:', apiUrl);
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          idToken: credentialResponse.credential
+        }),
+      });
+
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers.get('content-type'));
+
+      // Check if response is JSON before parsing
+      const contentType = response.headers.get('content-type');
+      const isJson = contentType && contentType.includes('application/json');
 
       if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Login failed');
+        if (isJson) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || `Login failed with status ${response.status}`);
+        } else {
+          // API returned HTML or other non-JSON (likely 404 or server error)
+          const errorText = await response.text();
+          console.error('Non-JSON error response:', errorText.substring(0, 200));
+          throw new Error(`API endpoint not found or returned invalid response. Status: ${response.status}. Please check that the Manus API is configured correctly.`);
+        }
+      }
+
+      if (!isJson) {
+        throw new Error('API returned non-JSON response. Please check API configuration.');
       }
 
       const data = await response.json();
