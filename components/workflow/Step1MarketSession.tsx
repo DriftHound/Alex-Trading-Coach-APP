@@ -4,11 +4,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { ChevronRight, Clock, CheckCircle } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import { useWorkflowStore } from '@/store/workflowStore';
 import { workflowAPI } from '@/lib/api/workflow';
-import { getAlexTimeStatus } from '@/lib/utils/alexTime';
-import { cn } from '@/lib/utils/cn';
 
 const FX_PAIRS = [
     'EURUSD',
@@ -37,7 +35,6 @@ type Step1FormData = z.infer<typeof step1Schema>;
 export default function Step1MarketSession() {
     const { step1Data, setStep1Data, nextStep } = useWorkflowStore();
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [alexTime] = useState(getAlexTimeStatus());
 
     const {
         register,
@@ -55,7 +52,7 @@ export default function Step1MarketSession() {
             const sessionData = {
                 pair: data.pair,
                 timestamp: new Date().toISOString(),
-                is_alex_time: alexTime.isAlexTime,
+                is_alex_time: true, // Keep for API compatibility, always true now
             };
 
             // Log session with Manus API
@@ -74,61 +71,18 @@ export default function Step1MarketSession() {
 
     return (
         <div>
-            <h2 className="text-2xl font-semibold mb-2">Market & Session Selection</h2>
+            <h2 className="text-2xl font-semibold mb-2">Market Bias & Environment</h2>
             <p className="text-gray-400 mb-6">
-                Select your currency pair and verify you're trading during Alex Time
+                Select the currency pair you're analyzing for your trading setup
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                {/* Alex Time Widget */}
-                <div className={cn(
-                    'p-6 rounded-lg border-2',
-                    alexTime.isAlexTime
-                        ? 'bg-success/10 border-success'
-                        : 'bg-danger/10 border-danger'
-                )}>
-                    <div className="flex items-center gap-3 mb-3">
-                        <Clock className={cn(
-                            'w-6 h-6',
-                            alexTime.isAlexTime ? 'text-success' : 'text-danger'
-                        )} />
-                        <h3 className="text-lg font-semibold">
-                            {alexTime.isAlexTime ? '✓ Alex Time Active' : '⚠️ Outside Alex Time'}
-                        </h3>
-                    </div>
-
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <p className="text-gray-400">Current Time (EST)</p>
-                            <p className="font-mono font-semibold text-lg">
-                                {alexTime.currentTimeEST}
-                            </p>
-                        </div>
-                        <div>
-                            <p className="text-gray-400">Session Window</p>
-                            <p className="font-semibold">
-                                {alexTime.sessionStart} - {alexTime.sessionEnd}
-                            </p>
-                        </div>
-                    </div>
-
-                    {alexTime.isAlexTime ? (
-                        <div className="mt-3 flex items-center gap-2 text-success">
-                            <CheckCircle className="w-5 h-5" />
-                            <span className="font-medium">
-                                {alexTime.timeUntilEnd} remaining in London session
-                            </span>
-                        </div>
-                    ) : (
-                        <div className="mt-3 text-danger">
-                            <p className="font-medium">
-                                ⚠️ Trading outside Alex Time reduces edge
-                            </p>
-                            <p className="text-sm mt-1">
-                                Next session starts in {alexTime.timeUntilStart}
-                            </p>
-                        </div>
-                    )}
+                {/* Info Card */}
+                <div className="p-4 bg-primary-500/10 border border-primary-500/20 rounded-lg">
+                    <p className="text-sm text-gray-300">
+                        <strong>Step 1 of 5:</strong> Start by selecting the market you're planning to trade.
+                        The following steps will help you document your complete pre-trade analysis.
+                    </p>
                 </div>
 
                 {/* Currency Pair Selection */}
@@ -151,6 +105,9 @@ export default function Step1MarketSession() {
                     {errors.pair && (
                         <p className="text-danger text-sm mt-1">{errors.pair.message}</p>
                     )}
+                    <p className="text-xs text-gray-500 mt-2">
+                        Choose the market that meets your trading plan criteria
+                    </p>
                 </div>
 
                 {/* Submit Button */}
