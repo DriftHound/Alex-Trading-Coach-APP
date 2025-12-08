@@ -3,6 +3,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { AlertTriangle } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -69,15 +70,29 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
+    <div className="min-h-screen flex items-center justify-center bg-background p-6">
       <div className="card max-w-md w-full">
         {/* Logo/Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full mb-4">
-            <span className="text-3xl">📈</span>
+            <span className="text-3xl">✓</span>
           </div>
-          <h1 className="text-3xl font-bold mb-2">Alex Trading Coach</h1>
-          <p className="text-gray-400">Professional FX Trading with AI Validation</p>
+          <h1 className="text-3xl font-bold mb-2">Confluence Checklist Coach</h1>
+          <p className="text-gray-400">Pre-Trade Checklist for Rule-Based Traders</p>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="mb-6 p-4 bg-warning/10 border-l-4 border-warning rounded">
+          <div className="flex items-start gap-2">
+            <AlertTriangle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
+            <div className="text-sm text-gray-300">
+              <p className="font-semibold text-warning mb-1">Educational Use Only</p>
+              <p>
+                This tool is for educational purposes only and does not provide financial advice.
+                Trading involves high risk of loss. Not affiliated with any broker or educator.
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Error Message */}
@@ -115,8 +130,8 @@ export default function LoginPage() {
               </svg>
             </div>
             <div>
-              <p className="font-medium">6-Step Validation Workflow</p>
-              <p className="text-sm text-gray-400">Enforce discipline with mandatory gates</p>
+              <p className="font-medium">Structured Pre-Trade Checklist</p>
+              <p className="text-sm text-gray-400">Follow your own rules systematically</p>
             </div>
           </div>
 
@@ -127,8 +142,8 @@ export default function LoginPage() {
               </svg>
             </div>
             <div>
-              <p className="font-medium">AI-Powered Coaching</p>
-              <p className="text-sm text-gray-400">Personalized insights and recommendations</p>
+              <p className="font-medium">Confluence-Based Approach</p>
+              <p className="text-sm text-gray-400">Document confluence factors before trading</p>
             </div>
           </div>
 
@@ -139,8 +154,8 @@ export default function LoginPage() {
               </svg>
             </div>
             <div>
-              <p className="font-medium">Strict R:R Enforcement</p>
-              <p className="text-sm text-gray-400">Minimum 1:2 ratio required</p>
+              <p className="font-medium">Set-and-Forget Planning</p>
+              <p className="text-sm text-gray-400">Commit to your management plan upfront</p>
             </div>
           </div>
         </div>
@@ -148,7 +163,7 @@ export default function LoginPage() {
         {/* Footer */}
         <div className="mt-8 pt-6 border-t border-gray-700 text-center">
           <p className="text-sm text-gray-500">
-            Trade with discipline. Follow the Alex methodology.
+            Slow down. Check your confluence. Commit to your plan.
           </p>
         </div>
       </div>
