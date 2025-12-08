@@ -1,29 +1,56 @@
-# Alex Trading Coach Application
+# Confluence Checklist Coach
 
-A professional Next.js application for high-leverage FX trading with AI-powered validation, TradingView charts, and comprehensive trade journaling.
+A professional Next.js application for rule-based, confluence-driven traders. Follow a structured pre-trade checklist before placing any trade. Educational use only.
+
+## ⚠️ Important Disclaimer
+
+**This tool is for educational purposes only and does not provide financial advice.**
+
+- Trading involves high risk of loss and is not suitable for everyone
+- Not affiliated with any broker, educator, or trading firm
+- Creator is not FCA-regulated and does not provide regulated investment services
+- You are solely responsible for your trading decisions
+
+See [full disclaimer](/disclaimer) for complete legal information.
+
+---
 
 ## 🎯 Features
 
-### Phase 1: Core Trading Workflow
-- **6-Step Validation Workflow**
-  1. Market & Session Selection with "Alex Time" validation
-  2. Trend Analysis with TradingView charts
-  3. AOI (Area of Interest) Mapping with drawing tools
-  4. Pattern & Signal Validation with confluence scoring
-  5. Risk & R:R Calculation with position sizing
-  6. Review & Journal Entry with AI-generated thesis
+### Pre-Trade Checklist Workflow (5 Steps)
 
-- **Trade Journal & Analytics**
-  - Comprehensive trade history
-  - Win rate and R:R tracking
-  - AI-powered coaching recommendations
-  - Pattern and session efficacy analysis
+1. **Market Bias & Environment**
+   - Select currency pair
+   - Document market conditions
 
-### Phase 2: Advanced Features
-- **File Upload**: Screenshot evidence for pattern validation
-- **AOI Monitoring**: Real-time price alerts for active AOIs
-- **Weekly Reports**: Automated performance summaries
-- **Notification Center**: In-app alerts for discipline violations and opportunities
+2. **Directional Bias Analysis**
+   - Analyze trends across multiple timeframes
+   - Document your directional bias
+   - AI validation with confidence scoring
+
+3. **Price Zones & Context**
+   - Mark key support/resistance levels
+   - Document confluence factors
+   - AI validation of zone quality
+
+4. **Setup Criteria & Triggers**
+   - Confirm your predefined setup/pattern
+   - Validate entry conditions
+   - Confluence scoring
+
+5. **Risk, Size & Reward-to-Risk Framework**
+   - Calculate position size
+   - Set stop loss and targets
+   - Verify minimum R:R ratio
+   - Document set-and-forget management plan
+
+### Trade Journal & Analytics
+- Comprehensive trade history
+- Win rate and R:R tracking
+- Pattern analysis
+- Outcome logging for learning
+
+---
 
 ## 🚀 Getting Started
 
@@ -52,8 +79,11 @@ npm start
 Create a `.env.local` file:
 
 ```env
-NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
+NEXT_PUBLIC_API_BASE_URL=https://your-api-url.com/api/agents
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-google-client-id
 ```
+
+---
 
 ## 📁 Project Structure
 
@@ -61,14 +91,14 @@ NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
 ├── app/
 │   ├── (auth)/              # Authentication pages
 │   │   ├── login/
-│   │   └── signup/
+│   │   └── callback/
 │   ├── (dashboard)/         # Protected dashboard pages
 │   │   ├── dashboard/
 │   │   ├── workflow/
 │   │   ├── journal/
 │   │   └── settings/
+│   ├── disclaimer/          # Legal disclaimer page
 │   ├── api/                 # Next.js API routes
-│   │   └── auth/
 │   ├── globals.css
 │   ├── layout.tsx
 │   └── page.tsx
@@ -76,8 +106,9 @@ NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
 │   ├── layout/              # Layout components
 │   │   ├── Sidebar.tsx
 │   │   ├── TopBar.tsx
+│   │   ├── DisclaimerBanner.tsx
 │   │   └── NotificationCenter.tsx
-│   ├── workflow/            # 6-step workflow components
+│   ├── workflow/            # 5-step workflow components
 │   │   ├── Step1MarketSession.tsx
 │   │   ├── Step2TrendAnalysis.tsx
 │   │   ├── Step3AOIMapping.tsx
@@ -85,21 +116,12 @@ NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
 │   │   ├── Step5RiskCalculation.tsx
 │   │   └── Step6ReviewJournal.tsx
 │   ├── journal/             # Journal components
-│   │   ├── TradeTable.tsx
-│   │   ├── OutcomeModal.tsx
-│   │   └── CoachingDashboard.tsx
-│   ├── charts/              # TradingView chart components
-│   │   ├── TradingViewChart.tsx
-│   │   └── DrawingTools.tsx
 │   └── settings/            # Settings components
-│       ├── MonitoringSettings.tsx
-│       └── ReportSettings.tsx
 ├── lib/
 │   ├── api/                 # API client and methods
 │   │   ├── client.ts
 │   │   └── workflow.ts
 │   └── utils/               # Utility functions
-│       ├── alexTime.ts
 │       ├── formatters.ts
 │       └── cn.ts
 ├── store/
@@ -111,13 +133,15 @@ NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
 └── package.json
 ```
 
+---
+
 ## 🎨 Design System
 
 ### Color Palette
 - **Background**: Deep dark (#0a0e1a, #111827, #1f2937)
 - **Primary**: Blue (#3b82f6)
-- **Success**: Green (#10b981) - Long positions
-- **Danger**: Red (#ef4444) - Short positions
+- **Success**: Green (#10b981)
+- **Danger**: Red (#ef4444)
 - **Warning**: Amber (#f59e0b)
 
 ### Components
@@ -126,59 +150,62 @@ NEXT_PUBLIC_API_BASE_URL=https://api.manus.im/v1
 - Inputs: `.input`, `.label`
 - Alerts: `.alert-success`, `.alert-danger`, `.alert-warning`
 
+---
+
 ## 🔧 Tech Stack
 
 - **Framework**: Next.js 14 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Charts**: TradingView Lightweight Charts
 - **State Management**: Zustand
 - **Form Handling**: React Hook Form + Zod
 - **HTTP Client**: Axios
 - **Icons**: Lucide React
+- **Authentication**: Google OAuth
 - **Deployment**: Netlify
+
+---
 
 ## 📊 API Integration
 
-All API calls are made to the Manus backend at `https://api.manus.im/v1/agents/*`
+All API calls are made to the Manus backend.
 
 ### Authentication
-- `POST /auth/login` - User login
-- `POST /auth/signup` - User registration
+- `POST /google-login` - Google OAuth login
 
 ### Workflow
-- `POST /agents/log_session` - Log market session
-- `POST /agents/validate_trend` - Validate trend analysis
-- `POST /agents/validate_aoi` - Validate AOI
-- `POST /agents/validate_pattern` - Validate pattern (with confluence score)
-- `POST /agents/calculate_risk` - Calculate risk and R:R
-- `POST /agents/journal_entry` - Create journal entry
+- `POST /log_session` - Log market session
+- `POST /validate_trend` - Validate trend analysis
+- `POST /validate_aoi` - Validate price zone/AOI
+- `POST /validate_pattern` - Validate setup/pattern
+- `POST /calculate_risk` - Calculate risk and R:R
+- `POST /journal_entry` - Create journal entry
 
 ### Journal
-- `GET /agents/trades` - Get all trades
-- `POST /agents/log_outcome` - Log trade outcome
-- `GET /agents/journal_analysis` - Get analytics
+- `GET /trades` - Get all trades
+- `POST /log_outcome` - Log trade outcome
+- `GET /journal_analysis` - Get analytics
 
-### Phase 2
-- `POST /agents/upload_screenshot` - Upload chart screenshot
-- `GET /agents/monitoring/aoi/status` - Get AOI monitoring status
-- `POST /agents/monitoring/aoi/config` - Update AOI monitoring
-- `GET /agents/notifications` - Get notifications
+---
 
 ## 🔐 Security
 
-- JWT tokens stored in httpOnly cookies
-- CORS headers configured
+- JWT tokens for authentication
+- Google OAuth integration
 - Input validation with Zod schemas
 - XSS protection via Next.js
 - Secure cookie settings in production
+
+---
 
 ## 📱 Responsive Design
 
 - Mobile-first approach
 - Collapsible sidebar on mobile
 - Touch-friendly interface
-- Optimized chart rendering
+- Optimized for all screen sizes
+
+---
 
 ## 🧪 Development
 
@@ -193,9 +220,13 @@ All API calls are made to the Manus backend at `https://api.manus.im/v1/agents/*
 - Form validation with React Hook Form
 - Type-safe API calls
 
+---
+
 ## 📄 License
 
-Proprietary - Alex Trading Coach
+Proprietary - Confluence Checklist Coach
+
+---
 
 ## 🤝 Support
 
@@ -203,5 +234,18 @@ For issues or questions, contact the development team.
 
 ---
 
-**Remember**: Trade with discipline. Follow the Alex methodology. Never deviate from the 1:2 minimum R:R rule.
-# Alex-Trading-Coach-APP
+## Key Principles
+
+**Slow down. Check your confluence. Commit to your plan.**
+
+This tool helps you:
+- Follow a structured pre-trade checklist
+- Document your trading plan before execution
+- Apply your own rules systematically
+- Commit to a set-and-forget management approach
+
+This tool does NOT:
+- Provide trading signals or recommendations
+- Tell you what to buy or sell
+- Execute trades on your behalf
+- Guarantee profits or reduce risk
