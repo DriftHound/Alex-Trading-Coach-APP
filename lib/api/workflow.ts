@@ -31,7 +31,7 @@ export const workflowAPI = {
     // Step 1: Log market session
     logMarketSession: async (data: Step1MarketSessionData) => {
         return apiClient.post<{ success: boolean; session_id: string }>(
-            '/agents/log_session',
+            '/log_session',
             data
         );
     },
@@ -39,7 +39,7 @@ export const workflowAPI = {
     // Step 2: Validate trend analysis
     validateTrend: async (data: Step2TrendAnalysisData) => {
         return apiClient.post<TrendValidationResponse>(
-            '/agents/validate_trend',
+            '/validate_trend',
             data
         );
     },
@@ -47,7 +47,7 @@ export const workflowAPI = {
     // Step 3: Validate AOI
     validateAOI: async (data: Step3AOIData) => {
         return apiClient.post<AOIValidationResponse>(
-            '/agents/validate_aoi',
+            '/validate_aoi',
             data
         );
     },
@@ -55,7 +55,7 @@ export const workflowAPI = {
     // Step 4: Validate pattern
     validatePattern: async (data: Step4PatternData) => {
         return apiClient.post<PatternValidationResponse>(
-            '/agents/validate_pattern',
+            '/validate_pattern',
             data
         );
     },
@@ -63,7 +63,7 @@ export const workflowAPI = {
     // Step 5: Calculate risk
     calculateRisk: async (data: Step5RiskData) => {
         return apiClient.post<RiskCalculationResponse>(
-            '/agents/calculate_risk',
+            '/calculate_risk',
             data
         );
     },
@@ -71,7 +71,7 @@ export const workflowAPI = {
     // Step 6: Create journal entry
     createJournalEntry: async (data: Step6JournalData) => {
         return apiClient.post<JournalEntryResponse>(
-            '/agents/journal_entry',
+            '/journal_entry',
             data
         );
     },
@@ -84,25 +84,25 @@ export const workflowAPI = {
 export const journalAPI = {
     // Get all trades for current user
     getTrades: async () => {
-        return apiClient.get<{ trades: Trade[] }>('/agents/trades');
+        return apiClient.get<{ trades: Trade[] }>('/trades');
     },
 
     // Get single trade by ID
     getTrade: async (tradeId: string) => {
-        return apiClient.get<{ trade: Trade }>(`/agents/trades/${tradeId}`);
+        return apiClient.get<{ trade: Trade }>(`/trades/${tradeId}`);
     },
 
     // Log trade outcome
     logOutcome: async (data: LogOutcomeRequest) => {
         return apiClient.post<LogOutcomeResponse>(
-            '/agents/log_outcome',
+            '/log_outcome',
             data
         );
     },
 
     // Get journal analysis
     getAnalysis: async () => {
-        return apiClient.get<JournalAnalysisResponse>('/agents/journal_analysis');
+        return apiClient.get<JournalAnalysisResponse>('/journal_analysis');
     },
 };
 
@@ -114,7 +114,7 @@ export const fileAPI = {
     // Upload screenshot for pattern validation
     uploadScreenshot: async (file: File, pair: string) => {
         return apiClient.uploadFile<FileUploadResponse>(
-            '/agents/upload_screenshot',
+            '/upload_screenshot',
             file,
             { pair }
         );
@@ -128,39 +128,39 @@ export const fileAPI = {
 export const monitoringAPI = {
     // Get AOI monitoring status
     getAOIMonitoringStatus: async () => {
-        return apiClient.get<AOIMonitoringStatus>('/agents/monitoring/aoi/status');
+        return apiClient.get<AOIMonitoringStatus>('/monitoring/aoi/status');
     },
 
     // Update AOI monitoring configuration
     updateAOIMonitoring: async (config: AOIMonitoringConfig) => {
         return apiClient.post<{ success: boolean }>(
-            '/agents/monitoring/aoi/config',
+            '/monitoring/aoi/config',
             config
         );
     },
 
     // Get weekly report status
     getWeeklyReportStatus: async () => {
-        return apiClient.get<WeeklyReportStatus>('/agents/monitoring/report/status');
+        return apiClient.get<WeeklyReportStatus>('/monitoring/report/status');
     },
 
     // Update weekly report subscription
     updateWeeklyReport: async (config: WeeklyReportConfig) => {
         return apiClient.post<{ success: boolean }>(
-            '/agents/monitoring/report/config',
+            '/monitoring/report/config',
             config
         );
     },
 
     // Get notifications
     getNotifications: async (limit: number = 20) => {
-        return apiClient.get<NotificationListResponse>('/agents/notifications', { limit });
+        return apiClient.get<NotificationListResponse>('/notifications', { limit });
     },
 
     // Mark notification as read
     markNotificationRead: async (notificationId: string) => {
         return apiClient.patch<{ success: boolean }>(
-            `/agents/notifications/${notificationId}/read`,
+            `/notifications/${notificationId}/read`,
             {}
         );
     },
@@ -168,7 +168,7 @@ export const monitoringAPI = {
     // Mark all notifications as read
     markAllNotificationsRead: async () => {
         return apiClient.post<{ success: boolean }>(
-            '/agents/notifications/read_all',
+            '/notifications/read_all',
             {}
         );
     },
@@ -181,7 +181,7 @@ export const monitoringAPI = {
 export const chartAPI = {
     // Get price data for a pair
     getPriceData: async (pair: string, timeframe: string = '1H', limit: number = 500) => {
-        return apiClient.get<{ data: any[] }>('/agents/chart_data', {
+        return apiClient.get<{ data: any[] }>('/chart_data', {
             pair,
             timeframe,
             limit,
