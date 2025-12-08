@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosError, InternalAxiosRequestConfig } from 'axios';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.manus.im/v1';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://3000-ivs6mmlhg9m3tj3d6stg6-3c645c19.manusvm.computer/api/agents';
 
 class APIClient {
     private client: AxiosInstance;
