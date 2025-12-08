@@ -9,7 +9,7 @@ const SESSION_END_MINUTE = 30;
 const EST_TIMEZONE = 'America/New_York';
 
 /**
- * Check if current time is within "optimal trading session" (London session 1:00-10:30 EST)
+ * Check if current time is within optimal trading session (London session 1:00-10:30 EST)
  */
 export function isOptimalSession(date: Date = new Date()): boolean {
     const estDate = toZonedTime(date, EST_TIMEZONE);
@@ -24,9 +24,9 @@ export function isOptimalSession(date: Date = new Date()): boolean {
 }
 
 /**
- * Get detailed optimal trading session status
+ * Get detailed session time status
  */
-export interface OptimalSessionStatus {
+export interface SessionTimeStatus {
     isOptimalSession: boolean;
     currentTime: string;
     currentTimeEST: string;
@@ -36,7 +36,7 @@ export interface OptimalSessionStatus {
     timeUntilEnd?: string;
 }
 
-export function getOptimalSessionStatus(date: Date = new Date()): OptimalSessionStatus {
+export function getSessionTimeStatus(date: Date = new Date()): SessionTimeStatus {
     const estDate = toZonedTime(date, EST_TIMEZONE);
     const isOptimal = isOptimalSession(date);
 
@@ -45,7 +45,7 @@ export function getOptimalSessionStatus(date: Date = new Date()): OptimalSession
     const sessionStart = `${String(SESSION_START_HOUR).padStart(2, '0')}:${String(SESSION_START_MINUTE).padStart(2, '0')} EST`;
     const sessionEnd = `${String(SESSION_END_HOUR).padStart(2, '0')}:${String(SESSION_END_MINUTE).padStart(2, '0')} EST`;
 
-    const status: OptimalSessionStatus = {
+    const status: SessionTimeStatus = {
         isOptimalSession: isOptimal,
         currentTime,
         currentTimeEST,
@@ -84,9 +84,9 @@ export function getOptimalSessionStatus(date: Date = new Date()): OptimalSession
 }
 
 /**
- * Format time display for optimal trading session widget
+ * Format time display for session widget
  */
-export function formatOptimalSession(date: Date = new Date()): string {
+export function formatSessionTime(date: Date = new Date()): string {
     const estDate = toZonedTime(date, EST_TIMEZONE);
     return format(estDate, 'HH:mm:ss zzz', { timeZone: EST_TIMEZONE });
 }

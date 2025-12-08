@@ -89,7 +89,7 @@ export default function MonitoringSettings() {
             </div>
 
             {/* Alex Time Warning */}
-            {isEnabled && !sessionTime.isSessionTime && (
+            {isEnabled && !sessionTime.isOptimalSession && (
                 <div className="alert-warning">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                     <div>
@@ -102,7 +102,7 @@ export default function MonitoringSettings() {
                 </div>
             )}
 
-            {isEnabled && sessionTime.isSessionTime && (
+            {isEnabled && sessionTime.isOptimalSession && (
                 <div className="alert-success">
                     <CheckCircle className="w-5 h-5 flex-shrink-0" />
                     <div>

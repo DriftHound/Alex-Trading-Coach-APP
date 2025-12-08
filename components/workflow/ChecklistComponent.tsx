@@ -36,7 +36,7 @@ export default function ChecklistComponent({ onComplete }: ChecklistComponentPro
             id: 'optimal_session',
             label: 'Trade is during Optimal Trading Hours (1:00-10:30 AM EST)',
             description: 'London session trading hours',
-            checked: sessionTime.isAlexTime,
+            checked: sessionTime.isOptimalSession,
             required: true,
         },
         {
