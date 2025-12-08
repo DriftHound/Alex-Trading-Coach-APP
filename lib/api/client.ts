@@ -115,8 +115,17 @@ export const isAuthenticated = (): boolean => {
 // Helper function to get current user
 export const getCurrentUser = () => {
     if (typeof window !== 'undefined') {
-        const userStr = localStorage.getItem('user');
-        return userStr ? JSON.parse(userStr) : null;
+        try {
+            const userStr = localStorage.getItem('user');
+            if (!userStr) return null;
+            return JSON.parse(userStr);
+        } catch (error) {
+            // Clear corrupted data
+            console.error('Failed to parse user data from localStorage:', error);
+            localStorage.removeItem('user');
+            localStorage.removeItem('authToken');
+            return null;
+        }
     }
     return null;
 };
