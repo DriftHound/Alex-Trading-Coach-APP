@@ -22,9 +22,10 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
     const loadNotifications = async () => {
         try {
             const data = await monitoringAPI.getNotifications(20);
-            setNotifications(data.notifications);
+            setNotifications(data.notifications || []);
         } catch (error) {
             console.error('Failed to load notifications:', error);
+            setNotifications([]);
         } finally {
             setIsLoading(false);
         }
@@ -68,7 +69,7 @@ export default function NotificationCenter({ onClose }: NotificationCenterProps)
             {/* Header */}
             <div className="p-4 border-b border-gray-700 flex items-center justify-between">
                 <h3 className="font-semibold">Notifications</h3>
-                {notifications.some(n => !n.read) && (
+                {notifications?.some(n => !n.read) && (
                     <button
                         onClick={markAllAsRead}
                         className="text-xs text-primary-400 hover:text-primary-300"
