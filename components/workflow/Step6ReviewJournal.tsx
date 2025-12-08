@@ -181,7 +181,7 @@ export default function Step6ReviewJournal() {
                     <div className="bg-background-secondary p-4 rounded-lg">
                         <p className="text-sm text-gray-400 mb-1">Session</p>
                         <p className="text-lg font-semibold">
-                            {step1Data?.is_alex_time ? '✓ Alex Time' : '⚠️ Off Hours'}
+                            {step1Data?.pair || 'N/A'}
                         </p>
                     </div>
                 </div>

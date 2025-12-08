@@ -15,7 +15,7 @@ import { cn } from '@/lib/utils/cn';
 
 const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Start New Trade', href: '/workflow', icon: TrendingUp },
+    { name: 'Start Checklist', href: '/workflow', icon: TrendingUp },
     { name: 'Trade Journal', href: '/journal', icon: BookOpen },
     { name: 'Settings', href: '/settings', icon: Settings },
 ];
@@ -53,8 +53,8 @@ export default function Sidebar() {
                                 <TrendingUp className="w-6 h-6 text-white" />
                             </div>
                             <div>
-                                <h1 className="font-bold text-lg">Alex Coach</h1>
-                                <p className="text-xs text-gray-400">Trading Discipline</p>
+                                <h1 className="font-bold text-lg">Confluence Coach</h1>
+                                <p className="text-xs text-gray-400">Pre-Trade Checklist</p>
                             </div>
                         </div>
                     </div>
@@ -85,8 +85,8 @@ export default function Sidebar() {
                     {/* Footer */}
                     <div className="p-4 border-t border-gray-700">
                         <div className="text-xs text-gray-500 text-center">
-                            <p>Trade with discipline</p>
-                            <p className="mt-1">Follow the methodology</p>
+                            <p>Slow down. Check confluence.</p>
+                            <p className="mt-1">Commit to your plan.</p>
                         </div>
                     </div>
                 </div>
