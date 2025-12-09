@@ -33,7 +33,7 @@ export interface User {
 export interface Step1MarketSessionData {
     pair: string;
     timestamp: string;
-    is_alex_time: boolean;
+    is_alex_time: boolean; // API compatibility - represents optimal trading session
 }
 
 export interface Step2TrendAnalysisData {
@@ -217,7 +217,7 @@ export interface AOIMonitoringStatus {
         description: string;
         created_at: string;
     }>;
-    is_alex_time: boolean;
+    is_alex_time: boolean; // API compatibility - represents optimal trading session
     monitoring_enabled: boolean;
 }
 

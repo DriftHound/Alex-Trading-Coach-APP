@@ -164,7 +164,7 @@ export default function ReportSettings() {
                         <div>
                             <p className="font-medium">Personalized Coaching Recommendations</p>
                             <p className="text-sm text-gray-400">
-                                AI-generated insights based on your trading patterns and adherence to Alex's rules
+                                AI-generated insights based on your trading patterns and adherence to your trading rules
                             </p>
                         </div>
                     </div>

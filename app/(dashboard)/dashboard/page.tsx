@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { TrendingUp, BookOpen, Target, Award, FileText } from 'lucide-react';
 import DisclaimerBanner from '@/components/layout/DisclaimerBanner';
+import UltraStepIcon from '@/components/icons/UltraStepIcon';
 
 export default function DashboardPage() {
     return (
@@ -52,6 +53,45 @@ export default function DashboardPage() {
                 </div>
             </div>
 
+            {/* Workflow Steps Preview */}
+            <div className="card mb-8">
+                <h2 className="text-2xl font-semibold mb-6">Pre-Trade Checklist Workflow</h2>
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-6">
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={1} size={70} />
+                        <p className="text-xs text-center text-gray-400">Market Bias</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={2} size={70} />
+                        <p className="text-xs text-center text-gray-400">Price Zones</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={3} size={70} />
+                        <p className="text-xs text-center text-gray-400">Setup Criteria</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={4} size={70} />
+                        <p className="text-xs text-center text-gray-400">Risk & Size</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={5} size={70} />
+                        <p className="text-xs text-center text-gray-400">Execution</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={6} size={70} />
+                        <p className="text-xs text-center text-gray-400">Completed</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={7} size={70} />
+                        <p className="text-xs text-center text-gray-400">Warning</p>
+                    </div>
+                    <div className="flex flex-col items-center gap-3">
+                        <UltraStepIcon step={8} size={70} />
+                        <p className="text-xs text-center text-gray-400">Journal</p>
+                    </div>
+                </div>
+            </div>
+
             {/* Quick Actions */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <Link href="/workflow" className="card-hover group">
@@ -82,15 +122,15 @@ export default function DashboardPage() {
                     </div>
                 </Link>
 
-                <Link href="/disclaimer" className="card-hover group">
+                <Link href="/settings" className="card-hover group">
                     <div className="flex items-start gap-4">
                         <div className="w-12 h-12 bg-warning rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
                             <FileText className="w-6 h-6 text-white" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold mb-1">Disclaimer & Risk</h3>
+                            <h3 className="text-lg font-semibold mb-1">Settings</h3>
                             <p className="text-gray-400 text-sm">
-                                Important legal information and risk warnings
+                                Configure monitoring alerts and reporting preferences
                             </p>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ export default function HomePage() {
         <div className="min-h-screen flex items-center justify-center">
             <div className="text-center">
                 <h1 className="text-4xl font-bold text-gradient mb-4">
-                    Alex Trading Coach
+                    Confluence Checklist Coach
                 </h1>
                 <p className="text-gray-400">Redirecting to login...</p>
             </div>

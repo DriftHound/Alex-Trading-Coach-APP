@@ -66,7 +66,7 @@ export default function MonitoringSettings() {
                             Enable AOI Approach Alerts
                         </h3>
                         <p className="text-sm text-gray-400">
-                            Get notified when price approaches your marked Areas of Interest during Alex Time
+                            Get notified when price approaches your marked Areas of Interest during Optimal Trading Hours
                         </p>
                     </div>
                     <button
@@ -88,12 +88,12 @@ export default function MonitoringSettings() {
                 </div>
             </div>
 
-            {/* Alex Time Warning */}
+            {/* Optimal Trading Hours Warning */}
             {isEnabled && !sessionTime.isOptimalSession && (
                 <div className="alert-warning">
                     <AlertTriangle className="w-5 h-5 flex-shrink-0" />
                     <div>
-                        <p className="font-semibold">Currently Outside Alex Time</p>
+                        <p className="font-semibold">Currently Outside Optimal Trading Hours</p>
                         <p className="text-sm mt-1">
                             Alerts will only fire during the London session (1:00-10:30 AM EST).
                             Next session starts in {sessionTime.timeUntilStart}.
@@ -108,7 +108,7 @@ export default function MonitoringSettings() {
                     <div>
                         <p className="font-semibold">Monitoring Active</p>
                         <p className="text-sm mt-1">
-                            AOI alerts are enabled and Alex Time is active. {sessionTime.timeUntilEnd} remaining in session.
+                            AOI alerts are enabled and Optimal Trading Hours are active. {sessionTime.timeUntilEnd} remaining in session.
                         </p>
                     </div>
                 </div>
@@ -161,7 +161,7 @@ export default function MonitoringSettings() {
                     <div className="text-sm text-gray-300">
                         <p className="font-semibold mb-1">How AOI Monitoring Works</p>
                         <ul className="space-y-1 text-gray-400">
-                            <li>• Background job checks prices every 5 minutes during Alex Time</li>
+                            <li>• Background job checks prices every 5 minutes during Optimal Trading Hours</li>
                             <li>• You'll receive a notification when price is within 10 pips of your AOI</li>
                             <li>• Alerts only fire during London session (1:00-10:30 AM EST)</li>
                             <li>• AOIs are automatically archived after trade conclusion</li>

@@ -167,7 +167,7 @@ export default function ChecklistComponent({ onComplete }: ChecklistComponentPro
                         <div>
                             <p className="font-semibold text-success text-lg">All Requirements Met!</p>
                             <p className="text-sm text-gray-300 mt-1">
-                                This trade setup meets all of Alex's criteria. You may proceed to journal entry.
+                                This trade setup meets all of the required criteria. You may proceed to journal entry.
                             </p>
                         </div>
                     </div>
