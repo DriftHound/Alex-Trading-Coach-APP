@@ -1,0 +1,259 @@
+/* UltraStepIcon Animations and Styles */
+
+.ultra-step-icon {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Sheen Sweep */
+.ultra-step-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: skewX(-25deg);
+    transition: left 0.5s ease;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.ultra-step-icon:hover::before {
+    left: 150%;
+    transition: left 0.7s ease;
+}
+
+.ultra-step-icon:hover {
+    border-color: rgba(0, 209, 172, 0.3);
+    box-shadow: 0 0 30px rgba(0, 209, 172, 0.1);
+}
+
+.svg-box {
+    width: 100%;
+    height: 100%;
+    transform: translateZ(20px);
+    filter: drop-shadow(0 0 0 rgba(0,0,0,0));
+    transition: filter 0.3s ease;
+}
+
+.ultra-step-icon:hover .svg-box {
+    filter: drop-shadow(0 0 12px rgba(0, 209, 172, 0.4));
+}
+
+/* AI Node Pulse */
+.ai-node {
+    fill: #22D3EE;
+    opacity: 0.3;
+}
+
+.ultra-step-icon:hover .ai-node {
+    animation: node-pulse 1s infinite;
+}
+
+@keyframes node-pulse {
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); filter: drop-shadow(0 0 4px #22D3EE); }
+    100% { opacity: 0.3; transform: scale(1); }
+}
+
+/* Gradient Strokes */
+.grad-stroke { stroke: url(#laserGradient); }
+.grad-fill { fill: url(#laserGradient); }
+
+/* 1. Market Bias */
+.bias-candle { opacity: 0.4; transition: height 0.3s, y 0.3s, fill 0.3s; }
+.bias-arrow { 
+    stroke-dasharray: 80;
+    stroke-dashoffset: 80;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bias-group { animation: drift-y 6s ease-in-out infinite alternate; }
+
+@keyframes drift-y {
+    from { transform: translateY(0); }
+    to { transform: translateY(-2px); }
+}
+
+.ultra-step-icon:hover .bias-candle { fill: url(#laserGradient); opacity: 1; }
+.ultra-step-icon:hover .bias-arrow { stroke-dashoffset: 0; }
+.ultra-step-icon:hover .bias-candle:nth-child(1) { animation: breathe-bar 1.2s infinite 0s; }
+.ultra-step-icon:hover .bias-candle:nth-child(2) { animation: breathe-bar 1.5s infinite 0.2s; }
+.ultra-step-icon:hover .bias-candle:nth-child(3) { animation: breathe-bar 1.3s infinite 0.1s; }
+
+@keyframes breathe-bar {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* 2. Price Zones */
+.zone-line { opacity: 0.3; transition: transform 0.5s ease; }
+.zone-test {
+    transform: translateY(-10px);
+    opacity: 0.5;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+}
+.zone-flash { opacity: 0; transform: scale(0); transform-origin: center; }
+
+.ultra-step-icon:not(:hover) .zone-top { animation: para-shift 4s ease-in-out infinite alternate; }
+.ultra-step-icon:not(:hover) .zone-bot { animation: para-shift-rev 4s ease-in-out infinite alternate; }
+
+@keyframes para-shift {
+    from { transform: translateY(0); }
+    to { transform: translateY(-1px); }
+}
+
+@keyframes para-shift-rev {
+    from { transform: translateY(0); }
+    to { transform: translateY(1px); }
+}
+
+.ultra-step-icon:hover .zone-test { transform: translateY(0); opacity: 1; }
+.ultra-step-icon:hover .zone-flash { animation: flash-burst 0.4s forwards 0.2s; }
+
+@keyframes flash-burst {
+    0% { opacity: 1; transform: scale(0); }
+    50% { opacity: 1; transform: scale(2); }
+    100% { opacity: 0; transform: scale(3); }
+}
+
+/* 3. Scope */
+.scope-ring {
+    transform-origin: center;
+    opacity: 0.4;
+    animation: radar-spin 20s linear infinite;
+}
+.scope-lines { transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1); transform-origin: center; }
+.scope-target {
+    transform: scale(0.5);
+    opacity: 0;
+    transform-origin: center;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ultra-step-icon:hover .scope-ring { animation-play-state: paused; stroke: #22D3EE; opacity: 1; }
+.ultra-step-icon:hover .scope-lines { transform: rotate(90deg) scale(1.1); }
+.ultra-step-icon:hover .scope-target { transform: scale(1); opacity: 1; transition-delay: 0.1s; }
+
+@keyframes radar-spin {
+    100% { transform: rotate(360deg); }
+}
+
+/* 4. Risk Size */
+.beam-group {
+    transform-origin: 50% 80px;
+    transform: rotate(-10deg);
+    transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.risk-block { transition: opacity 0.3s; }
+.reward-block {
+    transform-origin: bottom;
+    transform: scaleY(0.6);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.pivot-particle { opacity: 0; transform: scale(0); transform-origin: center; }
+
+.ultra-step-icon:hover .beam-group { transform: rotate(0deg); }
+.ultra-step-icon:hover .reward-block { transform: scaleY(1.2); }
+.ultra-step-icon:hover .risk-block { opacity: 0.5; }
+.ultra-step-icon:hover .pivot-particle { animation: particle-pop 0.5s ease-out forwards 0.3s; }
+
+@keyframes particle-pop {
+    0% { opacity: 1; transform: scale(0); }
+    100% { opacity: 0; transform: scale(2); }
+}
+
+/* 5. Execution Lock */
+.lock-body { fill: #1E293B; transition: fill 0.3s; }
+.lock-shackle { transform: translateY(-8px); transition: transform 0.2s cubic-bezier(0.5, 0, 0.75, 0); }
+.lock-glow { opacity: 0; transform-origin: center; transition: opacity 0.5s; }
+
+.ultra-step-icon.active .lock-shackle { transform: translateY(0); }
+.ultra-step-icon.active .lock-body { fill: #0F172A; }
+.ultra-step-icon.active .lock-glow { opacity: 1; animation: glow-pulse 3s infinite; }
+
+.shake { animation: shake-lock 0.3s ease-in-out; }
+
+@keyframes shake-lock {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { opacity: 0.3; filter: blur(5px); }
+    50% { opacity: 0.6; filter: blur(8px); }
+}
+
+/* 6. Completed */
+.check-path {
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.ripple-circle { opacity: 0; transform: scale(0.8); transform-origin: center; }
+.halo-ring { opacity: 0.2; transform-origin: center; animation: spin-slow 15s linear infinite; }
+
+.ultra-step-icon.active .check-path { stroke-dashoffset: 0; }
+.ultra-step-icon.active .ripple-circle { animation: ripple-out 0.8s ease-out forwards 0.4s; }
+
+@keyframes ripple-out {
+    0% { opacity: 0.5; transform: scale(0.8); }
+    100% { opacity: 0; transform: scale(1.4); }
+}
+
+@keyframes spin-slow {
+    100% { transform: rotate(360deg); }
+}
+
+/* 7. Warning */
+.warn-tri { transform-origin: center; }
+.warn-glow { opacity: 0; filter: blur(8px); transition: opacity 0.3s; }
+
+.ultra-step-icon .warn-tri { animation: warn-breathe 4s ease-in-out infinite; }
+.ultra-step-icon:hover .warn-glow { opacity: 0.6; }
+.ultra-step-icon:hover .warn-tri { animation: warn-alert 0.2s ease-in-out 3; }
+
+@keyframes warn-breathe {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes warn-alert {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* 8. Journal */
+.book-lines { stroke-dasharray: 10; stroke-dashoffset: 0; opacity: 0; }
+.page-l {
+    transform-origin: right;
+    transform: perspective(500px) rotateY(-30deg);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.page-r {
+    transform-origin: left;
+    transform: perspective(500px) rotateY(30deg);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.ultra-step-icon:hover .page-l { transform: perspective(500px) rotateY(0deg); }
+.ultra-step-icon:hover .page-r { transform: perspective(500px) rotateY(0deg); }
+.ultra-step-icon:hover .book-lines { opacity: 1; animation: scroll-lines 1s linear infinite; }
+
+@keyframes scroll-lines {
+    to { stroke-dashoffset: -20; }
+}
