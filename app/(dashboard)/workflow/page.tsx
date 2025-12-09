@@ -9,6 +9,7 @@ import Step3AOIMapping from '@/components/workflow/Step3AOIMapping';
 import Step4PatternValidation from '@/components/workflow/Step4PatternValidation';
 import Step5RiskCalculation from '@/components/workflow/Step5RiskCalculation';
 import Step6ReviewJournal from '@/components/workflow/Step6ReviewJournal';
+import UltraStepIcon from '@/components/icons/UltraStepIcon';
 
 const steps = [
     { number: 1, title: 'Market & Session', component: Step1MarketSession },
@@ -66,7 +67,7 @@ export default function WorkflowPage() {
                     </div>
                 </div>
 
-                {/* Progress bar */}
+                {/* Progress bar with Icons */}
                 <div className="relative">
                     <div className="flex justify-between mb-2">
                         {steps.map((step) => (
@@ -75,25 +76,30 @@ export default function WorkflowPage() {
                                 className="flex flex-col items-center"
                                 style={{ width: `${100 / steps.length}%` }}
                             >
-                                <div
-                                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${step.number < currentStep
-                                            ? 'bg-success text-white'
-                                            : step.number === currentStep
-                                                ? 'bg-primary-600 text-white'
-                                                : 'bg-gray-700 text-gray-400'
-                                        }`}
-                                >
-                                    {step.number}
+                                <div className={`transition-all duration-300 ${step.number < currentStep
+                                        ? 'opacity-60 grayscale'
+                                        : step.number === currentStep
+                                            ? 'scale-110'
+                                            : 'opacity-40 grayscale'
+                                    }`}>
+                                    <UltraStepIcon
+                                        step={step.number as 1 | 2 | 3 | 4 | 5 | 6}
+                                        size={50}
+                                        active={step.number === currentStep}
+                                    />
                                 </div>
-                                <span className="text-xs text-gray-400 mt-1 text-center">
+                                <span className={`text-xs mt-2 text-center transition-colors ${step.number === currentStep
+                                        ? 'text-primary-400 font-semibold'
+                                        : 'text-gray-400'
+                                    }`}>
                                     {step.title}
                                 </span>
                             </div>
                         ))}
                     </div>
-                    <div className="h-1 bg-gray-700 rounded-full overflow-hidden">
+                    <div className="h-1 bg-gray-700 rounded-full overflow-hidden mt-4">
                         <div
-                            className="h-full bg-primary-600 transition-all duration-300"
+                            className="h-full bg-gradient-to-r from-primary-600 to-success transition-all duration-300"
                             style={{ width: `${(currentStep / steps.length) * 100}%` }}
                         />
                     </div>
