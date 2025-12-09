@@ -18,10 +18,16 @@ class APIClient {
     }
 
     private setupInterceptors() {
-        // Request interceptor
+        // Request interceptor - Add auth token from localStorage
         this.client.interceptors.request.use(
             async (config: InternalAxiosRequestConfig) => {
-                // Cookies are sent automatically with withCredentials: true
+                // Get token from localStorage and add to headers
+                if (typeof window !== 'undefined') {
+                    const token = localStorage.getItem('authToken');
+                    if (token && config.headers) {
+                        config.headers.Authorization = `Bearer ${token}`;
+                    }
+                }
                 return config;
             },
             (error: AxiosError) => {
